@@ -2,5 +2,6 @@
 /*
 !/.gitignore
 !/README.md
-!/variety-india-indexing-audit.html
+!/index.html
+!/vercel.json
 !/variety-india-indexing-risk-by-url.csv

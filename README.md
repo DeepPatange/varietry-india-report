@@ -4,7 +4,7 @@ An indexing audit of varietyindia.com: why articles aren't getting indexed by Go
 
 ## Files
 
-- `variety-india-indexing-audit.html`: the report. Open it in a browser; it works offline except for fonts and ZIP reading.
+- `index.html`: the report. Live at https://varietry-india-report.vercel.app/, or open the file in a browser (works offline except for fonts and ZIP reading).
 - `variety-india-indexing-risk-by-url.csv`: all 3,869 articles with indexing risk, reasons, fix, word count, matching Variety.com original, and whether the article appears in Google results.
 
 ## What's in the report
