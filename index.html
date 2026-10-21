@@ -383,6 +383,7 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 footer { padding-top: 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; display: grid; gap: 6px; max-width: 78ch; }
 
 
+#thin .cols { align-items: start; }
 /* Loaded export result cards */
 .files { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 12px; align-items: start; }
 .xcard { border: 1px solid var(--ink); background: var(--surface); padding: 14px 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
@@ -534,7 +535,7 @@ header.top { border-bottom: 0; }
         <li><a href="#sitemap-audit">Sitemap audit</a></li>
         <li><a href="#google-check">Update with new exports</a></li>
         <li><a href="#ruled-out">Ruled out</a></li>
-        <li><a href="#thin">Detail: thin articles</a></li>
+        <li><a href="#thin">Detail: article length</a></li>
         <li><a href="#copies">Detail: Variety.com copies</a></li>
         <li><a href="#template">Detail: placeholder headings</a></li>
         <li><a href="#crawl">Detail: pagination, /share/</a></li>
@@ -567,7 +568,7 @@ header.top { border-bottom: 0; }
             <li>Search Console → Settings → Crawl stats: check Host status and “By response” for 5xx, 429, 403 and slow responses since July.</li>
             <li>Cloudflare → Security → Events, filtered to verified bots: make sure Googlebot isn’t challenged, rate-limited or blocked.</li>
             <li>Search Console → Security &amp; manual actions: confirm there is no manual action. Google ran spam updates on Aug 18–21 and Sep 24–Oct 7, while the indexed count was falling.</li>
-            <li>Stop publishing thin and copied stories. They are 55% of everything published since August.</li>
+            <li>Stop publishing uncredited Variety.com copies (10% of new articles since August) and one-line briefs with nothing original (12% are under 100 words).</li>
             <li>Request indexing for priority stories and keep them linked from the homepage.</li>
           </ol>
           <div class="iss-own"><b>Developer + SEO</b><small>Start now</small><a href="#gsc-results">See the data →</a></div>
@@ -585,20 +586,8 @@ header.top { border-bottom: 0; }
           <div class="iss-own"><b>Developer + editorial</b><small>1–2 weeks</small><a class="jump" href="#list" data-reason="VX">See 275 →</a></div>
         </div>
 
-        <div class="iss crit">
-          <span class="iss-n">3</span>
-          <div class="iss-name"><b>Thin articles</b><small>Main source of the 532 “Crawled – currently not indexed”</small></div>
-          <div class="iss-count"><b>1,747</b><small>articles under 150 words: 553 under 100, 1,194 at 100–149</small></div>
-          <ol class="iss-fix">
-            <li>Merge the 553 under 100 words into the main story on the same topic and 301 the old URL.</li>
-            <li>Expand the 1,194 at 100–149 words to 300+ words, starting with topics people still search for.</li>
-            <li>From now on: 300+ words per article, one living page per running story, one URL per interview.</li>
-          </ol>
-          <div class="iss-own"><b>Editorial</b><small>Ongoing</small><a class="jump" href="#list" data-reason="TX">See 1,747 →</a></div>
-        </div>
-
         <div class="iss warn">
-          <span class="iss-n">4</span>
+          <span class="iss-n">3</span>
           <div class="iss-name"><b>Sitemaps are stale and send false dates</b><small>Five wrong practices in the Yoast and Cloudflare setup</small></div>
           <div class="iss-count"><b>3 h 10 min</b><small>age of the cached post-sitemap4.xml when checked; the 4 newest articles were missing</small></div>
           <ol class="iss-fix">
@@ -609,6 +598,18 @@ header.top { border-bottom: 0; }
             <li>Decode the HTML codes in Google News titles.</li>
           </ol>
           <div class="iss-own"><b>Developer</b><small>About a day</small><a href="#sitemap-audit">Sitemap audit →</a></div>
+        </div>
+
+        <div class="iss warn">
+          <span class="iss-n">4</span>
+          <div class="iss-name"><b>Very short briefs with nothing original</b><small>Tested: article length is a small factor. Only briefs under 100 words stand out.</small></div>
+          <div class="iss-count"><b>553</b><small>articles under 100 words; 27% appear in Google vs 33–44% for longer ones (Feb–Jul)</small></div>
+          <ol class="iss-fix">
+            <li>Merge each into the main story on the same topic and 301 the old URL, or add something original to it.</li>
+            <li>From now on, every article needs something the press release doesn’t have: a quote, a number, context or an India angle.</li>
+            <li>Don’t set a word minimum or pad articles. Articles over 300 words did no better than those at 200–299.</li>
+          </ol>
+          <div class="iss-own"><b>Editorial</b><small>Ongoing</small><a class="jump" href="#list" data-reason="T1">See 553 →</a></div>
         </div>
 
         <div class="iss low">
@@ -666,7 +667,8 @@ header.top { border-bottom: 0; }
             <tbody>
               <tr><td>Google is not crawling new articles</td><td>1,431 “Discovered – currently not indexed” against 1,372 articles published Jul 25 – Oct 12. Indexed pages fell from 2,007 to 1,911 while 1,372 articles were added.</td><td><span class="verdict v-yes">Confirmed · main cause</span></td></tr>
               <tr><td>Variety.com copies don’t get indexed</td><td>Appear in Google: 17% of copies vs 35% of originals (Feb–Jul); 0% vs 7% (Aug–Oct).</td><td><span class="verdict v-yes">Confirmed</span></td></tr>
-              <tr><td>Thin articles index less</td><td>Feb–Jul: 27% of articles under 100 words appear vs 44% at 200–299 words. Since August, every length is at 5–11%.</td><td><span class="verdict v-part">Supported, partial</span></td></tr>
+              <tr><td>Short articles index less</td><td>Feb–Jul: 27% of articles under 100 words appear vs 44% at 200–299, but only 37% over 300 words. Median length 168 words for articles in Google vs 146 for those not. The top 20 articles by clicks have a median of 194 words.</td><td><span class="verdict v-part">Small effect</span></td></tr>
+              <tr><td>Longer articles would fix the indexing drop</td><td>Since August, articles of every length are at 5–11% in Google. The 1,431 “Discovered” pages were never fetched, so Google doesn’t know their length.</td><td><span class="verdict v-no">Not supported</span></td></tr>
               <tr><td>The risk score predicts indexing</td><td>Feb–Jul articles in Google: High 25%, Medium 33%, Low 40%.</td><td><span class="verdict v-part">Supported</span></td></tr>
               <tr><td>Sitemap problems stop indexing</td><td>Google already knows the 1,431 URLs (“Discovered”), so the sitemaps aren’t blocking discovery. They do delay new URLs by hours and send dates Google can’t trust.</td><td><span class="verdict v-part">Contributes, not the cause</span></td></tr>
               <tr><td>Content quality alone explains the August drop</td><td>The share of thin or copied articles barely moved: 50% (Feb–Jul) vs 55% (Aug–Oct). Publishing volume rose to 501–548 a month.</td><td><span class="verdict v-no">Not on its own</span></td></tr>
@@ -792,24 +794,35 @@ Sitemap: https://varietyindia.com/news-sitemap.xml</pre></div>
 
       <section id="thin">
         <div class="sec-head">
-          <span class="num c">ISSUE 3 IN DETAIL</span>
-          <h2>Thin articles: 1,747 under 150 words</h2>
-          <p>Median body text is 159 words. Google indexes a page when it adds something; a 30–100 word news brief usually doesn’t, especially on an eight-month-old domain publishing about 15 articles a day. This is the most likely reason behind “Crawled – currently not indexed”.</p>
+          <span class="num">ISSUE 4 IN DETAIL</span>
+          <h2>Article length is a small factor, not the cause</h2>
+          <p>Word count was tested against your Search Console data. Longer articles do slightly better, but length doesn’t explain why pages aren’t being indexed. The only group worth acting on is very short briefs with nothing original.</p>
+        </div>
+        <div class="table-wrap">
+          <table style="min-width:640px">
+            <thead><tr><th>Test</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Did Google read the missing pages?</td><td>No, for most of them. 1,431 are “Discovered – currently not indexed”: Google never fetched them, so their length can’t be the reason. Length can only matter for the 532 “Crawled – currently not indexed”.</td></tr>
+              <tr><td>Before August: share in Google by length</td><td>Under 100 words 27% · 100–149 33% · 150–199 38% · 200–299 44% · over 300 37%. Longer helps up to about 200 words, then stops helping.</td></tr>
+              <tr><td>Since August</td><td>5–11% at every length. The August drop has nothing to do with length.</td></tr>
+              <tr><td>Indexed vs not indexed (Feb–Jul originals)</td><td>Median 168 words in Google vs 146 not in Google: a 22-word difference.</td></tr>
+              <tr><td>Where the clicks go</td><td>Articles of 150–299 words got 1,516 clicks; those over 300 words got 165. The top 20 articles by clicks have a median of 194 words.</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="cols">
           <figure>
-            <figcaption><b>Articles by body word count</b><span>3,852 articles measured; body paragraphs only.</span></figcaption>
+            <figcaption><b>Articles by body word count</b><span>3,852 articles measured; body paragraphs only. Briefs under 100 words in black.</span></figcaption>
             <svg class="chart" id="chart-words" role="img" aria-label="Articles by body word count"></svg>
-            <div class="legend"><span><i style="background:var(--crit)"></i>Under 150</span><span><i style="background:var(--warn)"></i>150–299</span><span><i style="background:var(--ok)"></i>300 or more</span></div>
           </figure>
-          <figure>
-            <figcaption><b>Share of new articles under 150 words</b><span>Never below 38% in any month, so this is current practice.</span></figcaption>
-            <svg class="chart" id="chart-months" role="img" aria-label="Share of thin articles by month"></svg>
-          </figure>
+          <div class="panel">
+            <h3>Your top articles by clicks are short news<small>Performance export, Apr 1 – Oct 18, 2026.</small></h3>
+            <div class="table-wrap"><table><thead><tr><th>Article</th><th>Clicks</th><th>Impr.</th><th>Words</th></tr></thead><tbody><tr><td><a href="https://varietyindia.com/jailer-2-box-office-rajinikanth-film-breaks-multiple-records-on-day-1/" target="_blank" rel="noopener">Jailer 2 Day 1: Rajinikanth Shatters Multiple Box Office Records</a></td><td class="n">403</td><td class="n">21,810</td><td class="n">205</td></tr><tr><td><a href="https://varietyindia.com/trade-talk-rajinikanths-jailer-2-to-become-the-first-tamil-film-to-cross-1000-crore-mark-globally/" target="_blank" rel="noopener">Trade Talk: ‘Rajinikanth’s ‘Jailer 2’ To Become The First Tamil Film To Cross ₹1000-Crore Mark Globally’</a></td><td class="n">152</td><td class="n">6,341</td><td class="n">259</td></tr><tr><td><a href="https://varietyindia.com/simu-liu-of-avengers-doomsday-and-shang-chi-and-the-legend-of-the-ten-rings-fame-marries-allison-hsu/" target="_blank" rel="noopener">Simu Liu Of ‘Avengers: Doomsday’ And ‘Shang-Chi and the Legend of the Ten Rings’ Fame Marries Allison Hsu</a></td><td class="n">74</td><td class="n">5,779</td><td class="n">112</td></tr><tr><td><a href="https://varietyindia.com/premada-oorali-box-office-kannada-film-records-its-biggest-single-day-collection-on-day-15/" target="_blank" rel="noopener">‘Premada Oorali’ Box Office: Kannada Film Records Its Biggest Single-Day Collection On Day 15</a></td><td class="n">64</td><td class="n">2,972</td><td class="n">152</td></tr><tr><td><a href="https://varietyindia.com/drishyam-the-conclusion-review-ajay-devgn-starrer-betrays-the-doneness-even-before-the-last-few-frames/" target="_blank" rel="noopener">‘Drishyam The Conclusion’ Review: Ajay Devgn-Starrer Has The Spirit, But Where’s The Soul?</a></td><td class="n">59</td><td class="n">2,165</td><td class="n">235</td></tr><tr><td><a href="https://varietyindia.com/kenatha-konam-review-a-dry-village-digs-up-a-prehistoric-problem/" target="_blank" rel="noopener">Kenatha Konam Review: A Prehistoric Mystery Unfolds</a></td><td class="n">59</td><td class="n">1,117</td><td class="n">212</td></tr><tr><td><a href="https://varietyindia.com/aneet-padda-picks-alia-bhatt-priyanka-chopra-and-deepika-padukone-as-her-dream-co-stars-wants-to-explore-sisterhood-in-a-coming-of-age-comedy-exclusive/" target="_blank" rel="noopener">Aneet Padda&#x27;s Dream Co-Stars: Alia, Priyanka &amp; Deepika!</a></td><td class="n">54</td><td class="n">4,833</td><td class="n">184</td></tr><tr><td><a href="https://varietyindia.com/after-deepika-padukone-and-alia-bhatt-mamitha-baiju-becomes-third-indian-actress-to-score-three-%e2%82%b9200-crore-grossers-in-a-year/" target="_blank" rel="noopener">Mamitha Baiju Joins Deepika &amp; Alia in Elite Rs 200 Cr Club</a></td><td class="n">48</td><td class="n">1,828</td><td class="n">148</td></tr></tbody></table></div>
+          </div>
         </div>
         <div class="table-wrap">
           <table style="min-width:560px">
-            <thead><tr><th>Shortest articles</th><th>Body words</th></tr></thead>
+            <thead><tr><th>Briefs with nothing original: examples</th><th>Body words</th></tr></thead>
             <tbody>
               <tr><td><a href="https://varietyindia.com/alia-bhatt-and-sharvaris-alpha-gets-ua-16-certification-ahead-of-july-3-release/" target="_blank" rel="noopener">Alpha gets U/A 16 certification ahead of July 3 release</a></td><td class="n">32</td></tr>
               <tr><td><a href="https://varietyindia.com/aamir-khan-backed-lahore-1947-featuring-sunny-deol-and-preity-zinta-locks-independence-day-weekend/" target="_blank" rel="noopener">Lahore 1947 locks Independence Day weekend</a></td><td class="n">34</td></tr>
@@ -818,7 +831,7 @@ Sitemap: https://varietyindia.com/news-sitemap.xml</pre></div>
           </table>
         </div>
         <div class="prose">
-          <p><strong>Fix:</strong> merge the 553 articles under 100 words into the main story on the same topic and 301 the old URL, or expand them. For the 1,194 between 100 and 149 words, expand the ones on topics people still search for. Going forward: about 300 words minimum, one living page per running story (box office, Bigg Boss), and one URL per interview instead of one per quote.</p>
+          <p><strong>Fix:</strong> don’t set a word minimum and don’t pad articles. Merge the 553 briefs under 100 words into the main story on the same topic (301 the old URL), or add something original. From now on, every article needs something the press release doesn’t have: a quote, a number, context or an India angle. The 1,194 articles at 100–149 words are low priority.</p>
           <p class="jumps"><a class="jump" href="#list" data-reason="T1">Show the 553 under 100 words →</a><a class="jump" href="#list" data-reason="T2">Show the 1,194 at 100–149 words →</a></p>
         </div>
       </section>
@@ -922,7 +935,7 @@ Sitemap: https://varietyindia.com/news-sitemap.xml</pre></div>
         <div class="sec-head">
           <span class="num">PLAN</span>
           <h2>How to get articles indexed</h2>
-          <p>First find out why Google stopped crawling new articles, then cut what drags the site down, then rebuild the thin archive. Tick items as you go; ticks are saved in this browser.</p>
+          <p>First find out why Google stopped crawling new articles, then stop the copies and empty briefs, then clean up the archive. Tick items as you go; ticks are saved in this browser.</p>
         </div>
         <div class="plan">
           <div class="step">
@@ -939,7 +952,7 @@ Sitemap: https://varietyindia.com/news-sitemap.xml</pre></div>
           <div class="step">
             <div class="when"><b>Week 1–2</b><span>Editorial + developer</span></div>
             <ul>
-              <li><label class="check"><input type="checkbox" id="q6"><span>Stop publishing briefs under 150 words and uncredited Variety.com copies</span></label></li>
+              <li><label class="check"><input type="checkbox" id="q6"><span>Stop publishing uncredited Variety.com copies and one-line briefs with nothing original</span></label></li>
               <li><label class="check"><input type="checkbox" id="q7"><span>Agree the syndication rule with the Variety.com team, apply it to the 275 copies, and automate it in the importer</span></label></li>
               <li><label class="check"><input type="checkbox" id="q8"><span>Stop bulk re-saves; edits to SEO fields or tags must not change the modified date</span></label></li>
             </ul>
@@ -947,9 +960,8 @@ Sitemap: https://varietyindia.com/news-sitemap.xml</pre></div>
           <div class="step">
             <div class="when"><b>Week 2–8</b><span>Editorial</span></div>
             <ul>
-              <li><label class="check"><input type="checkbox" id="q9"><span>Merge or expand the 553 articles under 100 words, with 301s for merged URLs</span></label></li>
-              <li><label class="check"><input type="checkbox" id="q10"><span>Expand the 1,194 articles at 100–149 words on topics still searched</span></label></li>
-              <li><label class="check"><input type="checkbox" id="q11"><span>From now on: 300+ words, living pages for running stories, one URL per interview</span></label></li>
+              <li><label class="check"><input type="checkbox" id="q9"><span>Merge the 553 briefs under 100 words into main stories (301), or add something original</span></label></li>
+                            <li><label class="check"><input type="checkbox" id="q11"><span>From now on: every article adds a quote, number, context or India angle; living pages for running stories; one URL per interview. No word minimum, no padding.</span></label></li>
             </ul>
           </div>
           <div class="step">
@@ -1244,7 +1256,7 @@ function initProof() {
   // ---------- reason knowledge ----------
   var KB = [
     [/^discovered - currently not indexed/, "fix", "Found but never crawled. Google’s definition: it postponed the crawl because it expected to overload the site."],
-    [/^crawled - currently not indexed/, "fix", "Crawled and skipped: mostly thin and copied articles."],
+    [/^crawled - currently not indexed/, "fix", "Crawled and skipped. Likely includes Variety.com copies and very short briefs; export the URL list to confirm."],
     [/^server error/, "fix", "The server returned errors to Googlebot. Fix first."],
     [/access forbidden|403/, "fix", "Googlebot was refused (403). Check Cloudflare and firewall rules."],
     [/unauthori[sz]ed|401/, "chk", "Pages behind a login."],
@@ -1333,7 +1345,7 @@ function initProof() {
       '<div class="panel"><h3>Share of articles that appear in Google, by length<small>Original articles only (Variety.com copies left out). Source: Performance export' + (perfN ? "" : " (not loaded)") + ".</small></h3>" +
       '<div class="legend"><span><i style="background:var(--k3)"></i>Published before Aug 2026</span><span><i style="background:var(--k1)"></i>Published since Aug 2026</span></div>' +
       '<div class="gb" style="display:grid;gap:12px">' + lenRows + '<p class="note" style="margin-left:132px">Bar scale: 0–50%.</p></div>' +
-      '<p class="note">Variety.com copies in Google: ' + cb[1] + " of " + cb[2] + " published before August, " + cs[1] + " of " + cs[2] + " since.</p></div></div>";
+      '<p class="note">Length helps a little before August and makes no difference since; over 300 words does no better than 200–299. Variety.com copies in Google: ' + cb[1] + " of " + cb[2] + " published before August, " + cs[1] + " of " + cs[2] + " since.</p></div></div>";
     h += '<p class="proof-links"><a href="#list" class="pjump" data-f=\'{"gs":"in"}\'>List: ' + fmt(perfN) + ' articles proven indexed (have Google impressions) →</a>' +
       '<a href="#list" class="pjump" data-f=\'{"gs":"in","words":"200+"}\'>List: ' + fmt(perf200) + " of them with 200+ words →</a></p>";
     box.innerHTML = h;
@@ -1367,7 +1379,7 @@ function initProof() {
     // lead and issue 1
     var lead = $("g-lead");
     if (lead) lead.innerHTML = "Search Console shows <strong>" + fmt(indexed) + " pages indexed and " + fmt(notIdx) + " not</strong> (" + dlong(asof) + "). The biggest group is <strong>" + fmt(disc) +
-      " pages Google has found but not crawled</strong>" + (stalled ? ", about every article published after " + dshort(first[0]) : "") + ". Thin and copied articles make up most of the rest.";
+      " pages Google has found but not crawled</strong>" + (stalled ? ", about every article published after " + dshort(first[0]) : "") + ". Copied Variety.com stories and very short briefs explain part of the rest; article length on its own is a small factor.";
     if ($("g-disc")) $("g-disc").textContent = fmt(disc);
     if ($("g-disc-note")) $("g-disc-note").textContent = "pages, against " + fmt(pubWin) + " articles published " + dshort(first[0]) + " – " + dshort(asof);
   }
@@ -1481,9 +1493,9 @@ function initList() {
   var raw;
   try { raw = JSON.parse(document.getElementById("rows-data").textContent); } catch (e) { raw = []; }
   var REASON = {
-    T1: { label: "Under 100 words", cls: "crit", fix: "Merge into the main story (301), or expand to 300+ words" },
+    T1: { label: "Under 100 words", cls: "crit", fix: "Merge into the main story (301), or add original detail" },
     V:  { label: "Variety.com copy", cls: "crit", fix: "Canonical → Variety.com original, or rewrite with an India angle" },
-    T2: { label: "100–149 words", cls: "warn", fix: "Expand to 300+ words, or merge" },
+    T2: { label: "100–149 words", cls: "warn", fix: "Low priority: add original detail if the topic is still searched" },
     VP: { label: "Partly copied", cls: "warn", fix: "Rewrite, or canonical → Variety.com original" },
     H:  { label: "Placeholder H1", cls: "warn", fix: "Template fix: make the headline the H1" },
     B:  { label: "Broken SEO title", cls: "warn", fix: "Restore the real headline as SEO title" }
@@ -1716,10 +1728,10 @@ function initList() {
   }
 
   bars("chart-words", [
-    { k: "0–99", v: 553, c: "f-crit" }, { k: "100–149", v: 1194, c: "f-crit" },
-    { k: "150–199", v: 744, c: "f-warn" }, { k: "200–299", v: 635, c: "f-warn" },
+    { k: "0–99", v: 553, c: "f-crit" }, { k: "100–149", v: 1194, c: "f-ok" },
+    { k: "150–199", v: 744, c: "f-ok" }, { k: "200–299", v: 635, c: "f-ok" },
     { k: "300–499", v: 227, c: "f-ok" }, { k: "500+", v: 499, c: "f-ok" }
-  ], { max: 1200, ticks: [0, 300, 600, 900, 1200], ref: 4, refLabel: "300-word floor" });
+  ], { max: 1200, ticks: [0, 300, 600, 900, 1200] });
 
   bars("chart-months", [
     { k: "Feb", v: 56, c: "f-crit" }, { k: "Mar", v: 46, c: "f-crit" }, { k: "Apr", v: 45, c: "f-crit" },
