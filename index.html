@@ -1038,7 +1038,7 @@ Sitemap: https://varietyindia.com/news-sitemap.xml</pre></div>
           <label class="fld"><span>Google status</span>
             <select id="f-gs">
               <option value="">Any status</option>
-              <option value="in">Indexed</option>
+              <option value="in">Indexed or in Google results</option>
               <option value="out">Not indexed (any reason)</option>
               <option value="NC">Crawled – currently not indexed</option>
               <option value="ND">Discovered – currently not indexed</option>
@@ -1297,6 +1297,7 @@ function initProof() {
       return "<tr><td>" + esc(r[0]) + '</td><td class="n">' + fmt(r[2]) + "</td><td>" + tag + "</td><td>" + c[2] + "</td></tr>";
     }).join("");
     var otherFix = tot.fix - disc;
+    var peak = T.reduce(function (m, d) { return d[1] > m[1] ? d : m; }, T[0]);
     var stalled = disc >= 0.6 * pubWin && (indexed - first[1]) < 0.3 * pubWin;
     var pct = known ? Math.round(100 * indexed / known) : 0;
     window.viGsc = { asof: asof, indexed: indexed, notIdx: notIdx, disc: disc, crawled: crawled, pubWin: pubWin, from: first[0] };
@@ -1337,7 +1338,7 @@ function initProof() {
       '<div class="legend"><span><i style="background:var(--k3)"></i>Indexed</span><span><i style="background:var(--k1)"></i>Discovered – not indexed</span><span><i style="background:var(--k2)"></i>Crawled – not indexed and other fixes</span><span><i style="background:repeating-linear-gradient(45deg,var(--k1) 0 2px,var(--k4) 2px 6px)"></i>Site errors</span><span><i style="background:var(--k4)"></i>Excluded on purpose</span></div>' +
       '<div class="table-wrap"><table style="min-width:640px"><thead><tr><th>Reason in Search Console</th><th>Pages</th><th>Type</th><th>What it is here</th></tr></thead><tbody>' + rowsHtml + "</tbody></table></div></div>";
     h += '<div class="finding"><b>' + (stalled ? "Since late " + MON[+first[0].slice(5, 7) - 1] + ", new articles are not getting indexed" : "Indexing since " + dshort(first[0])) + "</b>" +
-      "<p>" + fmt(pubWin) + " articles were published after " + dlong(first[0]) + ", up to " + dlong(asof) + ". Over the same period the indexed count went from " + fmt(first[1]) + " to " + fmt(indexed) +
+      "<p>" + fmt(pubWin) + " articles were published after " + dlong(first[0]) + ", up to " + dlong(asof) + ". Over the same period the indexed count went from " + fmt(first[1]) + " to " + fmt(indexed) + (peak[1] > Math.max(first[1], indexed) ? " (peak " + fmt(peak[1]) + " on " + dshort(peak[0]) + ")" : "") +
       ", and “Discovered – currently not indexed” stands at " + fmt(disc) + "." + (stalled ? " That is about the same as the number of new articles: Google is finding them but not crawling them." : "") + "</p></div>";
     h += '<div class="cols"><div class="panel"><h3>Articles published vs pages indexed<small>Published: from the sitemap crawl. Indexed: Search Console, ' + dshort(first[0]) + " – " + dshort(asof) + ".</small></h3>" +
       '<svg class="chart" id="chart-trend" role="img" aria-label="Articles published vs pages indexed"></svg>' +
@@ -1346,7 +1347,7 @@ function initProof() {
       '<div class="legend"><span><i style="background:var(--k3)"></i>Published before Aug 2026</span><span><i style="background:var(--k1)"></i>Published since Aug 2026</span></div>' +
       '<div class="gb" style="display:grid;gap:12px">' + lenRows + '<p class="note" style="margin-left:132px">Bar scale: 0–50%.</p></div>' +
       '<p class="note">Length helps a little before August and makes no difference since; over 300 words does no better than 200–299. Variety.com copies in Google: ' + cb[1] + " of " + cb[2] + " published before August, " + cs[1] + " of " + cs[2] + " since.</p></div></div>";
-    h += '<p class="proof-links"><a href="#list" class="pjump" data-f=\'{"gs":"in"}\'>List: ' + fmt(perfN) + ' articles proven indexed (have Google impressions) →</a>' +
+    h += '<p class="proof-links"><a href="#list" class="pjump" data-f=\'{"gs":"in"}\'>List: ' + fmt(perfN) + ' articles that appeared in Google results →</a>' +
       '<a href="#list" class="pjump" data-f=\'{"gs":"in","words":"200+"}\'>List: ' + fmt(perf200) + " of them with 200+ words →</a></p>";
     box.innerHTML = h;
     box.querySelectorAll("a.pjump").forEach(function (a) { a.addEventListener("click", function () { try { LIST.filter(JSON.parse(a.getAttribute("data-f"))); } catch (e) {} }); });
@@ -1404,9 +1405,9 @@ function initProof() {
       } else if (f.type === "P") {
         var hp = f.homeClicks != null ? f.homeClicks : ((f.top || []).filter(function (t) { return norm(t[0]) === ""; })[0] || [0, 0])[1];
         body = '<div class="x-stats">' + stat(f.clicks != null ? fmt(f.clicks) : "—", "clicks") + stat(f.impressions != null ? fmt(f.impressions) : "—", "impressions") +
-          stat(fmt(f.pages || f.total || 0), "pages listed") + stat(fmt(f.slugs.length), "articles = proven indexed") + "</div>" +
+          stat(fmt(f.pages || f.total || 0), "pages listed") + stat(fmt(f.slugs.length), "articles that appeared in Google") + "</div>" +
           '<p class="x-note">' + (f.from ? dlong(f.from) + " – " + dlong(f.to) + ". " : "") +
-          (f.clicks && hp ? "<b>" + Math.round(100 * hp / f.clicks) + "% of all clicks go to the homepage</b> (" + fmt(hp) + "); articles get the rest." : "") + "</p>" +
+          (f.clicks && hp ? "<b>" + Math.round(100 * hp / f.clicks) + "% of all clicks go to the homepage</b> (" + fmt(hp) + "); articles get the rest. " : "") + "A page listed here was indexed when it appeared; it may have dropped out since. The list stops at the top 1,000 pages.</p>" +
           (f.top ? '<table class="x-table"><thead><tr><th>Top pages by clicks</th><th>Clicks</th><th>Impr.</th><th>Pos.</th><th>Words</th></tr></thead><tbody>' +
             f.top.map(function (t) { var s = norm(t[0]), r = bySlug[s]; var label = s === "" ? "Homepage" : (r ? r.title : "/" + s + "/");
               return '<tr><td><a href="' + esc(t[0]) + '" target="_blank" rel="noopener">' + esc(label) + '</a></td><td class="n">' + fmt(t[1]) + '</td><td class="n">' + fmt(t[2]) + '</td><td class="n">' + t[3].toFixed(1) + '</td><td class="n">' + (r && r.words != null ? fmt(r.words) : "—") + "</td></tr>"; }).join("") + "</tbody></table>" : "");
@@ -1453,7 +1454,7 @@ function initProof() {
     var html = '<div style="display:grid;gap:18px">';
     html += '<div class="kpis">' +
       '<div class="kpi"><b>' + fmt(R.length) + "</b><span>articles in the sitemaps</span></div>" +
-      '<div class="kpi in"><b>' + fmt(inN) + "</b><span>" + (HAS_OUT ? "indexed (from your URL lists)" : "proven indexed: have Google impressions") + "</span></div>" +
+      '<div class="kpi in"><b>' + fmt(inN) + "</b><span>" + (HAS_OUT ? "indexed (from your URL lists)" : "appeared in Google results since Apr 1") + "</span></div>" +
       '<div class="kpi out"><b>' + (HAS_OUT ? fmt(outN) : "—") + "</b><span>" + (HAS_OUT ? "not indexed (from your URL lists)" : "not indexed: add the URL-list exports") + "</span></div>" +
       '<div class="kpi unk"><b>' + fmt(unk) + "</b><span>" + (HAS_OUT ? "not in any URL list yet" : "no impressions in the export") + "</span></div></div>";
     html += '<div class="sb-block"><h3>Per-article status by body word count</h3>' +
@@ -1504,7 +1505,7 @@ function initList() {
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   function normSlug(s) { s = String(s || ""); try { s = decodeURIComponent(s); } catch (e) {} return s.replace(/^\/+|\/+$/g, "").toLowerCase(); }
-  var GS = { I: ["Indexed", "in"], P: ["Indexed", "in"], NC: ["Crawled, not indexed", "out"], ND: ["Discovered, not indexed", "out"], NU: ["Duplicate", "out"], NO: ["Not indexed", "out"] };
+  var GS = { I: ["Indexed", "in"], P: ["In Google results", "in"], NC: ["Crawled, not indexed", "out"], ND: ["Discovered, not indexed", "out"], NU: ["Duplicate", "out"], NO: ["Not indexed", "out"] };
   function gsGroup(c) { return GS[c] ? GS[c][1] : "unk"; }
   function humanize(slug) {
     var s = slug.replace(/-/g, " ");
